@@ -1,0 +1,4 @@
+* Remove unecessary metatables
+* Rebuild data structures
+* Make data be stored only in code, not instance values
+* Make bodies position in the sky be affected by position in the planet
