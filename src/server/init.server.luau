@@ -1,4 +1,7 @@
 task.wait(1)
+
+if true then return end
+
 local RS = game:GetService("ReplicatedStorage")
 local Light = game:GetService("Lighting")
 

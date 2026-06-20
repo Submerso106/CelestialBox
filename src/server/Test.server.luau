@@ -1,14 +1,39 @@
+local RunService = game:GetService("RunService")
+
+local Sun = workspace.SunTest
+local Planet = workspace.OrbitTest
+
+Sun.CFrame = CFrame.new(-20,10,0)
+
+local AnglePerSecond = 90
+local t = 0
+
+RunService.Heartbeat:Connect(function(dt)
+
+    local distance = 10
+    local angle = math.rad(t)
+    local facX, facZ = 1, 0.5
+    local T = math.sqrt(facX * facX - facZ * facZ)
+    local x, z = math.sin(angle) * facX - T, math.cos(angle) * facZ
+    local r = math.sqrt(x*x + z*z)
+    local angularSpeed = AnglePerSecond * (1 / r)
+    t += angularSpeed * dt
+    local orbitTilt = CFrame.Angles(math.rad(45),0,0)
+    local posOffset = CFrame.new(x * distance,0,z * distance)
+    local center = Sun.CFrame
+	Planet.CFrame = center * orbitTilt * posOffset
+	
+end)
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-if true then return end
-
 local CelestialBoxController = require(ReplicatedStorage.Shared.CelestialBoxController)
-local Body = require(ReplicatedStorage.Shared.Classes.Body)
-local Instance = require(ReplicatedStorage.Shared.Classes.Instance)
+local Body = require(ReplicatedStorage.Shared.Controllers.BodyController)
+local Instance = require(ReplicatedStorage.Shared.Controllers.InstanceController)
 
 task.wait(1)
 
-local body:Body.Body = Body.New(workspace.TestPlanet)rojo
+local body = Body.New(workspace.TestPlanet)
 body.Orbiting = workspace.Sun
 body.YearSize = 2
 body.DaySize = 1
@@ -56,7 +81,7 @@ planet4.OrbitDistance = 60
 planet4.Diameter = 20
 planet4:UpdateInfo()
 
-Instance.SetStandingPlanet(standing)
+Instance.SetActive(standing)
 CelestialBoxController:Init()
 
 Body:Activate()

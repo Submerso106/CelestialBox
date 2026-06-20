@@ -1,10 +1,10 @@
-local AstralBox = {}
-
-local Body = require(script.Parent.Classes.Body)
-
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local BodyController = require(ReplicatedStorage.Shared.Controllers.BodyController)
 local player = Players.LocalPlayer
+
+local AstralBox = {}
 
 function AstralBox:CharacterSetup(character)
 	
@@ -29,8 +29,8 @@ function AstralBox:CharacterSetup(character)
 		connection:Disconnect()
 	end)
 	
-	local bodies = Body.GetBody()
-	for index, body:Body.Body in bodies do
+	local bodies = BodyController.Bodies
+	for index, body in bodies do
 		body.Display.Adornee = displayAnchor
 	end
 	
